@@ -1,0 +1,13 @@
+Le Règlement général sur la protection des données (RGPD) est une législation européenne qui vise à protéger les droits et la confidentialité des individus en ce qui concerne le traitement de leurs données personnelles. Les cinq grands principes fondamentaux du RGPD sont les suivants :
+
+1. Licéité, loyauté et transparence : Les données personnelles doivent être traitées de manière licite, équitable et transparente envers les personnes concernées. Cela signifie que les individus doivent être informés de manière claire et compréhensible sur la collecte, l'utilisation et le traitement de leurs données personnelles.
+
+2. Limitation des finalités : Les données personnelles doivent être collectées à des fins spécifiques, légitimes et explicites, et ne doivent pas être traitées de manière incompatible avec ces finalités initiales. Les données ne doivent pas être utilisées de manière excessive ou détournée par rapport à ces objectifs.
+
+3. Minimisation des données : Les données personnelles collectées doivent être adéquates, pertinentes et limitées à ce qui est nécessaire pour atteindre les finalités pour lesquelles elles sont traitées. Les organisations doivent éviter de collecter des données excessives ou inutiles par rapport à ces finalités.
+
+4. Exactitude des données : Les données personnelles doivent être exactes, tenues à jour et corrigées si nécessaire. Les organisations doivent prendre des mesures raisonnables pour s'assurer que les données personnelles sont exactes et maintenues à jour.
+
+5. Limitation de la conservation : Les données personnelles ne doivent pas être conservées plus longtemps que nécessaire pour atteindre les finalités pour lesquelles elles ont été collectées. Les organisations doivent établir des périodes de conservation appropriées et supprimer les données personnelles une fois qu'elles ne sont plus nécessaires.
+
+Ces principes fondamentaux du RGPD visent à garantir que les données personnelles sont traitées de manière éthique, transparente et sécurisée, en donnant aux individus un contrôle sur leurs propres informations et en promouvant la responsabilité des organisations quant à la protection des données personnelles.
