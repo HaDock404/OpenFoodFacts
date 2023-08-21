@@ -1,13 +1,135 @@
-Le Règlement général sur la protection des données (RGPD) est une législation européenne qui vise à protéger les droits et la confidentialité des individus en ce qui concerne le traitement de leurs données personnelles. Les cinq grands principes fondamentaux du RGPD sont les suivants :
 
-1. Licéité, loyauté et transparence : Les données personnelles doivent être traitées de manière licite, équitable et transparente envers les personnes concernées. Cela signifie que les individus doivent être informés de manière claire et compréhensible sur la collecte, l'utilisation et le traitement de leurs données personnelles.
 
-2. Limitation des finalités : Les données personnelles doivent être collectées à des fins spécifiques, légitimes et explicites, et ne doivent pas être traitées de manière incompatible avec ces finalités initiales. Les données ne doivent pas être utilisées de manière excessive ou détournée par rapport à ces objectifs.
+1. Bonjour, je m'appelle Gael Delescluse et je vais vous présentez mon 3ème projet : Préparez les données pour un organisme de Santé Publique.
+C'est un projet commandé par l'agence de Santé Publique France, un établissement public sous la tutelle du ministère chargé de la santé avec pour mission d'améliorer et protéger la santé des populations.
+Et OpenFood Facts, un projet associatif et citoyen disposant d'une base de données de produits alimentaire permettant à l'Agence santé publique France d'assurer une surveillance de la qualité nutritionnelle des produits alimentaires.
 
-3. Minimisation des données : Les données personnelles collectées doivent être adéquates, pertinentes et limitées à ce qui est nécessaire pour atteindre les finalités pour lesquelles elles sont traitées. Les organisations doivent éviter de collecter des données excessives ou inutiles par rapport à ces finalités.
+Dans ce projet il m'a été demandé d'effectuer une étude de faisabilité pour l'ajout d'une fonction d'auto-complétion du champ de données d'un nouveau produit suggéré par un utilisateur.
 
-4. Exactitude des données : Les données personnelles doivent être exactes, tenues à jour et corrigées si nécessaire. Les organisations doivent prendre des mesures raisonnables pour s'assurer que les données personnelles sont exactes et maintenues à jour.
 
-5. Limitation de la conservation : Les données personnelles ne doivent pas être conservées plus longtemps que nécessaire pour atteindre les finalités pour lesquelles elles ont été collectées. Les organisations doivent établir des périodes de conservation appropriées et supprimer les données personnelles une fois qu'elles ne sont plus nécessaires.
+2. Pour conseiller l'ajout de la fonction d'auto-complétion il était important de réaliser d'abord une étude de faisabilité du projet en analysant les données présente dans la base de données d'OpenFood Facts.
+Je présenterais alors mon analyse préliminaire du Dataset, puis son nettoyage en passant par une première étape de remplacement des données manquantes puis une correction des valeurs aberrantes qui fausseraient le travail d'analyse du jeu de données. Et enfin j'effectuerai une analyse du jeu de donnée avec  une analyse univariée, une analyse bivariée et une analyse multivariées. 
 
-Ces principes fondamentaux du RGPD visent à garantir que les données personnelles sont traitées de manière éthique, transparente et sécurisée, en donnant aux individus un contrôle sur leurs propres informations et en promouvant la responsabilité des organisations quant à la protection des données personnelles.
+
+3. Open Food Facts est un projet associatif et citoyen créé en 2014, qui a par la suite été remarqué par Santé publique France qui soutient désormais l'initiative.  
+Un système d'étiquetage nutritionnel a été développé pour permettre d'informer les consommateurs sur la qualité nutritionnelles des produits.
+
+On parle alors du nutriscore, c'est un logo qui indique la qualité nutritionnelle des aliments avec des notes allant de A à E. 
+Avec le NutriScore, les valeurs nutritionnelles des produits peuvent être facilement et rapidement comparés.
+
+La note NutriScore est déterminée par la quantité de nutriments bons et mauvais pour la santé :
+L'énergie, les graisses saturées, les sucres, et le sodium avec des niveaux élevés sont considérés comme mauvais pour la santé 
+La proportion de fruits, de légumes, de noix, d'huiles d'olive, de colza, de fibres et de protéines avec les niveaux élevés sont considérés comme bons pour la santé.
+
+Près de 800 millions d'adultes dans le monde sont considérés comme obèse. Cela représente 2.8millions de décès par an ce qui pose un problème de santé publique qui doit être étudié et surveillé pour y remédier.
+
+L'ajout d'une fonctionnalité d'auto-complétion permettrait à la plateforme d'améliorer l'ajout de nouveau produit par les utilisateurs. 
+Ce sont eux le premier vecteur de succès de cette base de données, il faut leur permettre d'augmenter leur appétence à renseigner de nouveaux produits le plus facilement possible et cela en leur empêchant de faire des erreurs qui biaise la répartition des produits et tronque la note obtenu par les nutriscore.
+
+
+4. J'ai donc commencé par une analyse préliminaire du Dataset pour mieux comprendre la répartition des données et ce qu'elles représentaient. 
+Dans le jeu de données on peut retrouver 320.772 individus caractérisé par 162 variables ce qui est assez important pour être remarqué, le tout séparé par une séparateur \t.
+On peut également constater de nombreuses valeurs manquantes, et des informations rédigé dans différentes langues dont des langues différentes de l'alphabet latin.
+Par une analyse métier j'ai pu éliminer un grand nombre de variable pour ne garder que celle qui me semblaient utile au calcul du nutriscore qui est l'objectif du jeu de données pour chaque individu.
+
+En analysant le dataset on peut se rendre compte du grand nombre de données manquantes dans nos variables sélectionné, mais le taux de valeurs manquantes ne dépasse jamais 40%.
+
+
+5. Je me suis ensuite chargé de nettoyage du Dataset par l'élimination des valeurs aberrantes, et des valeurs atypiques. 
+J'ai commencé par supprimer toutes les valeurs qui était supérieur à 100 pour les variables qui représente la répartition d'un apport nutritif pour 100g ce qui ne peut pas être dépassé. 
+J'ai également supprimé les valeurs négatives. 
+Je suis ensuite passé à la variable Energy, j'ai fais une recherche métier pour retrouver sa valeur maximale, il s'agit de l'huile d'avocat avec 3765 kj, j'ai ensuite étudié l'interquartile de cette variable pour voir si cela correspondait à mon analyse métier, et j'ai ensuite supprimé toutes les valeurs qui dépassait 1.5 fois l'interquartile, soit 3619, j'ai supprimé toutes les valeurs au dessus.
+Les valeurs atypiques sont plus difficile à repérer, cependant en analysant graphiquement les nuages de points entres différentes valeurs suite à une analyse de corrélation dans mon étude, j'ai pu plus tard les supprimer, je présente ici la solution de suppression que j'ai mis en place, j'ai tracé une droite qui jouxtait mon nuage de point et j'ai supprimé ce qui était au dessus. Ce qui m'a permis de supprimer rapidement les valeurs atypiques.
+
+
+6. Nous passons ensuite par le traitement des données manquantes. Nous pouvons d'ores et déjà supprimer les individus qui ne comporte pas de nom de produit, c'est ce nom de produit qui permet de relier les valeurs à quelque chose de tangible sans lui l'individu ne peut pas être représenté. Cela ne représente malheureusement que 5% de notre jeu de données, il nous reste encore de nombreuses de données à retrouver
+
+
+7. Pour représenter la corrélation de Pearson il est d'abord nécessaire de ne prendre que les individus qui n'ont aucune valeurs manquantes. On peut alors remarquer différentes corrélation entre les variables.
+Notamment entre les variables 'salt_100g' et 'sodium_100g' également entre les variables 'fat_100g', 'satured_fat_100g' et 'energy_100g', et enfin entre les variables 'carbohydrates_100g', 'sugars_100g' et 'energy_100g'
+
+
+8. Nous utilisons la fonction IterativeImputer pour retrouver nos valeurs avec les variables qui sont en corrélation avec celle manquantes. Nous obtenons de bon résultats de remplissage. Il ne nous reste que les variables protéines salt et sodium qui reste manque par cette solution, les valeurs étant négligeable nous supprimons les individus dont il manque des valeurs pour ces variables. 
+Pour la variable fiber, la suppression serait trop importante, après une analyse de la répartition interquartile des valeurs pour cette variable on peut constater une asymétrie dans se répartition, on peut alors remplacer les valeurs manquantes par la médiane.
+
+
+
+9. Pour retrouver les valeurs manquantes pour la variable nutriscore nous pouvons utiliser l'algorithme de k nearest neighbors qui permet de remplacer les valeurs manquantes par la valeurs des individus qui possèdent de nombreuses caractéristique similaire à celle de l'individus dont il manque des valeurs après un entrainement sur un jeu de données sans valeurs manquantes. J'ai pris pour l'entrainement de mon modèle 50.000 individus pour ne pas ralentir l'entrainement. Après une analyse sur le meilleur nombre de voisins pour le remplacement des valeurs manquantes j'ai choisi 3 comme nombre de voisins permettant de retrouver les valeurs manquantes.
+
+
+10. Cet algorithme a permis de remplacer toutes les valeurs manquantes de la variable nutriscore avec une précisions de 84%. Notre travail de nettoyage est désormais terminé nous avons supprimé près de 29% de nos individus mais ce travail était nécessaire pour pouvoir faire une analyse de la répartition de nos valeurs pour répondre à la problématique d'ajout d'une application d'auto-complétion des valeurs d'un nouveau produit.
+
+
+11. Nous pouvons désormais passer à l'analyse exploratoire de notre jeu de données nettoyé et corrigé.
+On commence par une analyse univarié avec ici la répartition du nutriscore dans le dataset.
+Nous pouvons étudier une bonne répartition du nutriscore avec les paramètres les moins bon qui prennent plus d'un quart chacun du jeu de données. Nous pouvons également remarquer que le meilleur paramètres du nutriscore est le moins bien représenté du jeu de données. Ces observations peuvent s'expliquer par le fait qu'il existe peu de produits bon pour la santé dans le commerce que de produits mauvais.
+
+
+12. Ensuite l'analyse univariée sur l'interquartile de différentes variables. On peut constater une asymétrie dans la répartition des valeurs des différentes variables.
+
+13. Pour l'analyse bivariée j'ai choisi de représenter le diagramme de Pearson qui permet de visualiser les différentes corrélation des variables dans le dataset avec notamment une corrélation entre les variables 'salt_100g' et 'sodium_100g' également entre les variables 'fat_100g', 'satured_fat_100g' et 'energy_100g', et enfin entre les variables 'carbohydrates_100g', 'sugars_100g' et 'energy_100g'
+
+
+14. On retrouve cette corrélation parfaite entre le sel et le sodium avec le nuage de points qui forme une droite.
+
+
+15. Et enfin la corrélation entre le sucre et l'énergie qui permet de mieux comprendre la répartition de la variable sucre avec celle du nutriscore.  Avec pour les aliments ayant le moins de sucre un très bon nutriscore et inversement pour les aliments ayant un taux de sucre important.
+
+16. Pour finir j'ai effectué une analyse multivariée en commençant par l'analyse en composante principale (ACP) qui permet de créer de nouvelles composante pour l'étude de notre dataset, on crée de nouvelles variables qui permettront de représenter les variables qui représente le plus la variance des données du dataset, on peut se rendre compte que les 4 premières nouvelles composante rassemble plus de 80% de la variance des données, c'est elle que nous observerons.
+
+17. 
+"Indice de Densité Énergétique et Lipidique".
+"Indice de Densité Saline"
+"Indice de Densité Sucré"
+"Indice de Densité des Fibres"
+
+Ces nouvelles composantes retrouvé par analyse métier permettent une interprétation différentes du jeu de données en regroupant différentes variables en de nouvelles on simplifie la représentation.
+
+18. Enfin pour terminer notre étude nous effectuons une ANOVA à un facteur, entre la variable quantitative 'sugars_100g' et la variable qualitative 'nutrition_grade_fr'.
+Nous commençons par analyser leur distribution en traçant une boite à moustache faisant apparaître leur moyenne avec le point rouge.
+Nous pouvons observer des différences entre chaque moyenne de chaque groupe ainsi que des différences de représentation graphique.
+
+19. Par calcule de l'ANOVA, et plus particulièrement par le test kruskal Willis puisque il n'y a pas de normalité dans la représentation graphique de la variable quantitative on remarque alors que la variable sugars_100g a un effet statistique significatif sur la variable nutrition_score_fr. Nous pouvons alors inférer le résultat de l'étude de cette échantillon sur le reste de la population et admettre que pour chaque nouveau individu, le sucre aura un effet important sur le nutriscore.
+
+
+20. Le Règlement général sur la protection des données (RGPD) est une législation européenne qui vise à protéger les droits et la confidentialité des individus en ce qui concerne le traitement de leurs données personnelles. Nous démontrons ici que les 5 grands principes fondamentaux du RGPD sont respectés dans cette étude.
+
+Licéité, loyauté et transparence : Les données personnelles ont été traitées de manière licite, équitable et transparente envers les personnes concernées puisqu'aucune données personnelles n'ont été collectées.
+
+Limitation des finalités : Les données personnelles ont été collectées à des fins spécifiques, légitimes et explicites, et n'ont pas été traitées de manière incompatible avec ces finalités initiales. Les données n'ont pas été utilisées de manière excessive ou détournée par rapport à ces objectifs.
+
+Minimisation des données : Les données personnelles collectées ont été adéquates, pertinentes et limitées à ce qui était nécessaire pour atteindre les finalités pour lesquelles elles ont été traitées. Nous avons évité de collecter des données excessives ou inutiles par rapport à ces finalités.
+
+Exactitude des données : Les données personnelles ont été exactes, tenues à jour et corrigées si nécessaire.
+
+Limitation de la conservation : Les données personnelles n'ont pas être conservées plus longtemps que nécessaire pour atteindre les finalités pour lesquelles elles ont été collectées.
+
+Ces principes fondamentaux du RGPD visant à garantir que les données personnelles ont été traitées de manière éthique, transparente et sécurisée, ont été respectés simplement car aucune données personnelles n'a été collecté durant notre étude de faisabilité d'ajout d'une nouvelles fonctionnalité.
+
+
+
+21. 
+En conclusion de notre étude de faisabilité concernant l'ajout d'une nouvelle fonctionnalité de complétion d'informations relatives à l'ajout d'un nouveau produit dans la base de données OpenFood Facts, il est indéniable que cette initiative présente une pertinence significative pour diverses raisons.
+
+Notre analyse approfondie a démontré la corrélation entre différentes variable et le résultat attendu du nutriscore.
+Grâce aux différentes analyses univariées, bivariées et multivariées nous avons pu déterminer que la distribution des valeurs de ses variables impactait directement le résultat du nutriscore.
+Certaines variables pouvait être synthétisées en de nouvelles variables pour simplifier le calcul du nutriscore ou pour retrouver facilement les valeurs manquantes du jeu de données.
+Avec de nombreuses données manquantes nous avons pu malgré tout déterminer le résultat du nutriscore en imputant son résultat grâce à différents algorithmes.
+En considérant ces résultats, l'ajout d'une fonctionnalité d'auto-complétion des données d'un nouveau produit dans le jeu de données semble être réalisable.
+
+L'ajout cette nouvelle fonctionnalité dans le site web d'OpenFood Facts est alors pertinente. Il est alors recommandé de procéder à la mise en œuvre de cette fonctionnalité, en veillant à suivre les meilleures pratiques de développement et de gestion de projet afin de garantir son succès à long terme.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
